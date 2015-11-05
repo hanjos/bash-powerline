@@ -38,6 +38,7 @@ __powerline() {
     readonly FG_BLUE="\[$(tput setaf 4)\]"
     readonly FG_CYAN="\[$(tput setaf 6)\]"
     readonly FG_GREEN="\[$(tput setaf 2)\]"
+    readonly FG_BLACK="\[$(tput setaf 0)\]"
 
     readonly BG_YELLOW="\[$(tput setab 3)\]"
     readonly BG_ORANGE="\[$(tput setab 9)\]"
@@ -47,6 +48,7 @@ __powerline() {
     readonly BG_BLUE="\[$(tput setab 4)\]"
     readonly BG_CYAN="\[$(tput setab 6)\]"
     readonly BG_GREEN="\[$(tput setab 2)\]"
+    readonly BG_BLACK="\[$(tput setab 0)\]"
 
     readonly DIM="\[$(tput dim)\]"
     readonly REVERSE="\[$(tput rev)\]"
@@ -94,13 +96,17 @@ __powerline() {
         # colors in the prompt accordingly. 
         if [ $? -eq 0 ]; then
             local BG_EXIT="$BG_GREEN"
+	    local FG_EXIT="$FG_WHITE"
         else
             local BG_EXIT="$BG_RED"
+	    local FG_EXIT="$FG_WHITE"
         fi
 
-        PS1="$BG_BASE1$FG_BASE3 \w $RESET"
-        PS1+="$BG_BLUE$FG_BASE3$(__git_info)$RESET"
-        PS1+="$BG_EXIT$FG_BASE3 $PS_SYMBOL $RESET "
+	PS1="$BG_BLUE$FG_WHITE \u $RESET"
+	PS1+="$DIM$BG_MAGENTA$FG_WHITE \h $RESET"
+        PS1+="$DIM$BG_CYAN$FG_BLACK \w $RESET"
+        PS1+="$BG_YELLOW$FG_BLACK$(__git_info)$RESET"
+        PS1+="\n$BG_EXIT$FG_EXIT $PS_SYMBOL $RESET "
     }
 
     PROMPT_COMMAND=ps1
